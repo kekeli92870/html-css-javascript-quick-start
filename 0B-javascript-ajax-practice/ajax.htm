@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>AJAX 標籤選單</title>
+    <script type="text/javascript">
+        function getData(pageName){
+            //建立 Ajax XMLHttpRequest 連線物件
+            var req=new XMLHttpRequest();
+            //設定連線方法與網址
+            req.open("get","https://kekeli92870.github.io/github-test/htm/"+pageName);
+            //load事件:偵測連線狀態結束
+            req.onload=function(){
+                //連線完成: 執行連線後的處理
+                //alert(this.responseText);
+                var content=document.getElementById("content");
+                content.innerHTML=this.responseText;
+            };
+            //送出連線
+            req.send();
+        }
+    </script>
+</head>
+<body onload="getData('benq.htm')">
+    <h4>JavaScript AJAX標籤選單: 使用 XMLHttpRequest 物件(與伺服器做連線)</h4>
+    <!--<h5>使用 XMLHttpRequest 物件:用來和伺服器做連線</h5>-->
+    <div>
+        <span style="color: blue;" onclick="getData('benq.htm');">BenQ</span>
+        <span style="color: pink;" onclick="getData('logitech.htm');">羅技</span>        
+    </div>
+    <hr>
+    <div id="content"></div>
+</body>
+</html>
