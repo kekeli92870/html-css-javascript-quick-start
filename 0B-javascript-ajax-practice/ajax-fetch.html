@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>AJAX網路連線</title>
+</head>
+<body>
+    <h3>AJAX fetch API 網路連線: 存取遠端的JSON資料</h3>
+    <div id="list"></div>
+    <script>
+        /*
+        //try try
+        //let data={"name":"KK"};//物件
+        //console.log(data);
+        let data='{"name":"KK"}';//字串
+        console.log("轉換前",data);
+        data=JSON.parse(data);//把字串型態的資料轉換成物件
+        console.log("轉換後",data);
+        */
+       
+        //先顯示 Loadding 訊息
+        let list=document.getElementById("list");
+        list.innerHTML="... Loadding ...";
+
+        //使用 AJAX fetch API 連線到遠端網址，進行資料抓取
+        //詳細使用請參考：https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+		//或搜尋關鍵字：fetch mdn
+        let src="https://kekeli92870.github.io/github-test/data/products.json";
+        /*測試: 字串的方式取回資料
+        fetch(src).then(function(response){
+            console.log(response);
+            return response.text();//用字串的方式取回資料
+        }).then(function(result){
+            console.log("最終取回的資料: ",result.toUpperCase());
+        });
+        */
+        fetch(src).then(function(response){        
+            return response.json();
+        }).then(function(result){
+            console.log("最終取回的資料: ",result);
+            //把取回的資料放在畫面上
+            list.innerHTML="";//先清空畫面
+            let prod;
+            let sum=0;
+            //將產品的訊息依序顯示出來
+            for(let i=0;i<result.length;i++){
+                prod=result[i];
+                list.innerHTML+=prod.name.bold()+" - "+prod.price+"<hr/>"
+                sum+=prod.price;
+            }
+            let avg=sum/result.length;
+            list.innerHTML+="平均售價: "+avg;
+        });
+    </script>
+</body>
+</html>
